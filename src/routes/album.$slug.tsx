@@ -11,12 +11,18 @@ export const Route = createFileRoute("/album/$slug")({
     if (!album) throw notFound();
     return { album };
   },
-  head: ({ loaderData }) => ({
+  head: ({ params, loaderData }) => ({
     meta: [
       { title: `${loaderData?.album.title ?? "Album"} — Boss_Edit_Fotos` },
       { name: "description", content: loaderData?.album.tagline ?? "" },
       { property: "og:title", content: `${loaderData?.album.title} — Boss_Edit_Fotos` },
+      { property: "og:description", content: loaderData?.album.tagline ?? "" },
+      { property: "og:url", content: `/album/${params.slug}` },
+      { property: "og:type", content: "article" },
       { property: "og:image", content: loaderData?.album.cover },
+    ],
+    links: [
+      { rel: "canonical", href: `/album/${params.slug}` },
     ],
   }),
   component: AlbumPage,
