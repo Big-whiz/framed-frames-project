@@ -60,7 +60,7 @@ function AlbumPage() {
         </div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
-          {album.images.map((src, i) => (
+          {album.images.map((src: string, i: number) => (
             <motion.button
               key={src}
               onClick={() => setIndex(i)}
