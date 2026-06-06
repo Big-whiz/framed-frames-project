@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, Link2, Share2, Check } from "lucide-react";
 import { getAlbum, albums } from "@/lib/albums";
 import { Lightbox } from "@/components/Lightbox";
 
@@ -41,6 +41,37 @@ export const Route = createFileRoute("/album/$slug")({
 function AlbumPage() {
   const { album } = Route.useLoaderData();
   const [index, setIndex] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const shareUrl = typeof window !== "undefined"
+    ? `${window.location.origin}/album/${album.slug}`
+    : `/album/${album.slug}`;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore
+    }
+  };
+
+  const handleNativeShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${album.title} — Boss_Edit_Fotos`,
+          text: album.tagline,
+          url: shareUrl,
+        });
+      } catch {
+        // ignore abort / failure
+      }
+    } else {
+      await handleCopy();
+    }
+  };
 
   return (
     <main className="pt-28 px-4 md:px-8">
@@ -60,9 +91,49 @@ function AlbumPage() {
               {album.title}
             </h1>
           </div>
-          <span className="text-[11px] uppercase tracking-[0.25em] text-[#E0E0E0]/50">
-            {album.images.length} frames
-          </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleCopy}
+              className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#E0E0E0]/60 hover:text-white transition-colors"
+              aria-label="Copy link"
+              title="Copy link"
+            >
+              <AnimatePresence mode="wait">
+                {copied ? (
+                  <motion.span
+                    key="check"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="inline-flex items-center gap-2"
+                  >
+                    <Check size={14} /> Copied
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="link"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="inline-flex items-center gap-2"
+                  >
+                    <Link2 size={14} /> Copy link
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+            <button
+              onClick={handleNativeShare}
+              className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#E0E0E0]/60 hover:text-white transition-colors"
+              aria-label="Share"
+              title="Share"
+            >
+              <Share2 size={14} /> Share
+            </button>
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#E0E0E0]/50 ml-2">
+              {album.images.length} frames
+            </span>
+          </div>
         </div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
