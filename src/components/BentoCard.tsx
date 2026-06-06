@@ -18,6 +18,7 @@ export function BentoCard({ album }: { album: Album }) {
       <motion.img
         src={album.cover}
         alt={album.title}
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover"
         whileHover={{ scale: 1.03, filter: "brightness(0.55)" }}
         initial={{ filter: "brightness(0.85)" }}

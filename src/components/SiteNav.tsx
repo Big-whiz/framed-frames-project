@@ -1,6 +1,10 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 
 export function SiteNav() {
+  const { location } = useRouterState();
+  const isHome = location.pathname === "/";
+  const isAbout = location.pathname === "/about";
+
   return (
     <header className="fixed top-0 inset-x-0 z-40">
       <div className="backdrop-blur-md bg-[#121212]/40">
@@ -9,8 +13,18 @@ export function SiteNav() {
             Boss_Edit_Fotos
           </Link>
           <div className="flex items-center gap-7 text-[13px] uppercase tracking-[0.18em] text-[#E0E0E0]/80">
-            <Link to="/" className="hover:text-white transition-colors">Work</Link>
-            <Link to="/about" className="hover:text-white transition-colors">About</Link>
+            <Link
+              to="/"
+              className={`transition-colors ${isHome ? "text-white" : "hover:text-white"}`}
+            >
+              Work
+            </Link>
+            <Link
+              to="/about"
+              className={`transition-colors ${isAbout ? "text-white" : "hover:text-white"}`}
+            >
+              About
+            </Link>
           </div>
         </nav>
       </div>

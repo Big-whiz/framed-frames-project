@@ -31,6 +31,7 @@ function Index() {
         <motion.img
           src={HERO}
           alt="Boss_Edit_Fotos hero"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover"
           initial={{ scale: 1.08, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

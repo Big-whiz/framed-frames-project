@@ -175,6 +175,7 @@ function AlbumPage() {
                 <img
                   src={a.cover}
                   alt={a.title}
+                  loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-[1.03]"
                   style={{ filter: "brightness(0.75)" }}
                 />
