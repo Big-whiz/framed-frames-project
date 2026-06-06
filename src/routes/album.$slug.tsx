@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, Link2, Share2, Check } from "lucide-react";
 import { getAlbum, albums } from "@/lib/albums";
 import { Lightbox } from "@/components/Lightbox";
 
