@@ -8,6 +8,14 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Boss_Edit_Fotos — Photography Portfolio" },
       { name: "description", content: "Selected work in dance, worship, and live events." },
+      { property: "og:title", content: "Boss_Edit_Fotos — Photography Portfolio" },
+      { property: "og:description", content: "Selected work in dance, worship, and live events." },
+      { property: "og:url", content: "/" },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: HERO },
+    ],
+    links: [
+      { rel: "canonical", href: "/" },
     ],
   }),
   component: Index,

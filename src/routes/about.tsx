@@ -6,6 +6,13 @@ export const Route = createFileRoute("/about")({
     meta: [
       { title: "About — Boss_Edit_Fotos" },
       { name: "description", content: "About Boss_Edit_Fotos — photographer of dance, worship, and live events." },
+      { property: "og:title", content: "About — Boss_Edit_Fotos" },
+      { property: "og:description", content: "About Boss_Edit_Fotos — photographer of dance, worship, and live events." },
+      { property: "og:url", content: "/about" },
+      { property: "og:type", content: "website" },
+    ],
+    links: [
+      { rel: "canonical", href: "/about" },
     ],
   }),
   component: About,

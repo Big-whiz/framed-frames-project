@@ -60,6 +60,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Boss_Edit_Fotos" },
       { property: "og:description", content: "Cinematic photography across dance, worship, and live events." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Boss_Edit_Fotos" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
