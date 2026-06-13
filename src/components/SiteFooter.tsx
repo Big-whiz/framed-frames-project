@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Mail } from "lucide-react";
+import { AtSign, Mail } from "lucide-react";
 import { albums } from "@/lib/albums";
 
 export function SiteFooter() {
@@ -47,7 +47,7 @@ export function SiteFooter() {
                 rel="noreferrer noopener"
                 className="inline-flex items-center gap-2 hover:text-white transition-colors"
               >
-                <Instagram size={14} /> Instagram
+                <AtSign size={14} /> Instagram
               </a>
             </li>
             <li>

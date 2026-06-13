@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Mail, Instagram, MapPin, Clock } from "lucide-react";
+import { Mail, AtSign, MapPin, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -64,7 +64,7 @@ function Contact() {
             target="_blank" rel="noreferrer noopener"
             className="group bg-[#121212] p-7 hover:bg-[#1a1a1a] transition-colors"
           >
-            <Instagram className="text-[#E0E0E0]/60 group-hover:text-white transition-colors" size={18} />
+            <AtSign className="text-[#E0E0E0]/60 group-hover:text-white transition-colors" size={18} />
             <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-[#E0E0E0]/45">Instagram</p>
             <p className="mt-2 font-display text-lg text-[#E0E0E0] group-hover:text-white">
               @boss_edit_fotos

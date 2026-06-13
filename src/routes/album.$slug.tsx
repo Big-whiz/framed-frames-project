@@ -100,7 +100,7 @@ function AlbumPage() {
   const beforeQuote = rest.slice(0, quoteAt);
   const afterQuote = rest.slice(quoteAt);
 
-  const openAt = (photo: Photo) => setIndex(album.photos.findIndex((p) => p.id === photo.id));
+  const openAt = (photo: Photo) => setIndex(album.photos.findIndex((p: Photo) => p.id === photo.id));
 
   return (
     <main className="pt-28 px-4 md:px-8">
@@ -184,7 +184,7 @@ function AlbumPage() {
 
         {/* Masonry */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance] mt-12">
-          {beforeQuote.map((p, i) => (
+          {beforeQuote.map((p: Photo, i: number) => (
             <Frame key={p.id} photo={p} index={i} albumTitle={album.title} onOpen={() => openAt(p)} />
           ))}
         </div>
@@ -206,7 +206,7 @@ function AlbumPage() {
         )}
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
-          {afterQuote.map((p, i) => (
+          {afterQuote.map((p: Photo, i: number) => (
             <Frame key={p.id} photo={p} index={i} albumTitle={album.title} onOpen={() => openAt(p)} />
           ))}
         </div>
