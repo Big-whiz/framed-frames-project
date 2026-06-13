@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import type { Album } from "@/lib/albums";
+import { SmartImage } from "@/components/SmartImage";
 
 const spanClass: Record<Album["span"], string> = {
   col: "md:col-span-2 aspect-[16/10]",
@@ -8,30 +10,50 @@ const spanClass: Record<Album["span"], string> = {
   square: "aspect-square",
 };
 
-export function BentoCard({ album }: { album: Album }) {
+export function BentoCard({ album, index }: { album: Album; index: number }) {
+  const cover = album.photos[0]?.id ?? "";
   return (
-    <Link
-      to="/album/$slug"
-      params={{ slug: album.slug }}
-      className={`group relative overflow-hidden ${spanClass[album.span]}`}
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      className={spanClass[album.span]}
     >
-      <motion.img
-        src={album.cover}
-        alt={album.title}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover"
-        whileHover={{ scale: 1.03, filter: "brightness(0.55)" }}
-        initial={{ filter: "brightness(0.85)" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-6">
-        <p className="text-[11px] uppercase tracking-[0.3em] text-white/70 mb-3">
-          {album.tagline}
-        </p>
-        <h3 className="font-display text-3xl md:text-5xl text-white">
-          {album.title}
-        </h3>
-      </div>
-    </Link>
+      <Link
+        to="/album/$slug"
+        params={{ slug: album.slug }}
+        className="group relative block h-full w-full overflow-hidden"
+      >
+        <SmartImage
+          photoId={cover}
+          width={1600}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="absolute inset-0 h-full w-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-[1.04]"
+          style={{ filter: "brightness(0.7)" }}
+          alt={`${album.title} cover`}
+        />
+        {/* Always-on gradient + caption */}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+        <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-7">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.32em] text-white/60 mb-2">
+                {album.tagline}
+              </p>
+              <h3 className="font-display text-2xl md:text-4xl text-white leading-none">
+                {album.title}
+              </h3>
+              <p className="text-[11px] tracking-[0.18em] uppercase text-white/45 mt-3">
+                {album.photos.length} frames
+              </p>
+            </div>
+            <div className="hidden md:flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white/80 transition-all duration-500 group-hover:bg-white group-hover:text-black group-hover:border-white">
+              <ArrowUpRight size={16} />
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
   );
 }
